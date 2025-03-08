@@ -4,12 +4,12 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import RedirectView
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     
-    # Redirect root to the API root
-    path("", RedirectView.as_view(url="/api/", permanent=False)),
+    # Serve index.html at the root URL
+    path("", TemplateView.as_view(template_name="index.html")),
 ]
