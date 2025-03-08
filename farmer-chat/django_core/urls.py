@@ -4,12 +4,24 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.http import FileResponse
+import os
+
+# Direct file serving view
+def serve_index(request):
+    # Path to your index.html file
+    index_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'index.html')
+    if os.path.exists(index_path):
+        return FileResponse(open(index_path, 'rb'))
+    else:
+        # Fallback message if file not found
+        from django.http import HttpResponse
+        return HttpResponse("Welcome to the app! The homepage file was not found.")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     
-    # Serve index.html at the root URL
-    path("", TemplateView.as_view(template_name="index.html")),
+    # Serve index.html at the root URL using our custom view
+    path("", serve_index),
 ]
