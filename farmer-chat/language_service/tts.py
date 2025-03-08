@@ -1,4 +1,6 @@
 import asyncio, aiohttp, logging, uuid
+import os
+import json
 from google.cloud import texttospeech
 from google.oauth2 import service_account
 
@@ -10,7 +12,18 @@ from django_core.config import Config
 logger = logging.getLogger(__name__)
 
 
-credentials = service_account.Credentials.from_service_account_file(Config.GOOGLE_APPLICATION_CREDENTIALS)
+
+
+# Fetch the JSON content from the environment variable
+google_creds_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_INFO")
+if not google_creds_json:
+    raise ValueError("Google service account info is not set in the environment variables")
+
+# Parse the JSON string
+google_creds_info = json.loads(google_creds_json)
+
+# Create credentials from the info
+credentials = service_account.Credentials.from_service_account_info(google_creds_info)
 
 
 async def synthesize_speech_azure(text_to_synthesize, language_code, aiohttp_session):
