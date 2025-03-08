@@ -99,3 +99,4 @@ vine==5.1.0
 wcwidth==0.2.13
 wrapt==1.16.0
 yarl==1.9.4
+uvicorn==0.18.2
