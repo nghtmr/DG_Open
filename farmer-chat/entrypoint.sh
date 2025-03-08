@@ -12,7 +12,7 @@ tail -n 0 -f /app/uvicorn_logs.txt &
 cd /app
 
 # Set default port if not provided
-PORT=${PORT:-8000}
+PORT=${PORT:-8080}
 
 # Gunicorn run
 /opt/venv/bin/gunicorn --workers=4 --bind 0.0.0.0:$PORT --log-level debug \
