@@ -31,9 +31,6 @@ DEBUG = ENV_CONFIG.get("DJANGO_DEBUG_MODE", False)
 
 ALLOWED_HOSTS = ["*"]
 
-PORT = os.environ.get("PORT", 8000)  # Defaults to 8000 if not set
-
-
 # Application definition
 
 INSTALLED_APPS = [
